@@ -15,6 +15,7 @@ export class PullRequest {
     const { owner, repo, number: pull_number } = this.context.issue
     let reviewers: string[] = []
     let team_reviewers: string[] = []
+    core.info(JSON.stringify(_reviewers))
     for (const reviewer of _reviewers) {
       if (reviewer.startsWith('@')) {
         team_reviewers.push(reviewer.substring(1))
