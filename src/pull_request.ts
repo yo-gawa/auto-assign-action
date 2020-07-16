@@ -12,10 +12,10 @@ export class PullRequest {
   }
 
   async addReviewers(_reviewers: string[]): Promise<void> {
+    core.info(`addReviewers`)
     const { owner, repo, number: pull_number } = this.context.issue
     let reviewers: string[] = []
     let team_reviewers: string[] = []
-    core.info(JSON.stringify(_reviewers))
     for (const reviewer of _reviewers) {
       if (reviewer.startsWith('@')) {
         team_reviewers.push(reviewer.substring(1))
@@ -23,8 +23,10 @@ export class PullRequest {
         reviewers.push(reviewer)
       }
     }
-    core.info(JSON.stringify(reviewers))
-    core.info(JSON.stringify(team_reviewers))
+    core.info(`addReviewers reviewers to PR : ${reviewers.join(', ')}`)
+    core.info(
+      `addReviewers team_reviewers to PR : ${team_reviewers.join(', ')}`
+    )
     const result = await this.client.pulls.createReviewRequest({
       owner,
       repo,
