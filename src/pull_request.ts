@@ -22,6 +22,8 @@ export class PullRequest {
         reviewers.push(reviewer)
       }
     }
+    core.info(JSON.stringify(reviewers))
+    core.info(JSON.stringify(team_reviewers))
     const result = await this.client.pulls.createReviewRequest({
       owner,
       repo,
